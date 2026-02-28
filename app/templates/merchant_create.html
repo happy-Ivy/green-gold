@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>建立交易代碼</title>
+</head>
+<body>
+  <h2>建立交易代碼</h2>
+
+  <p>請選擇幾點（0~999）。確認後會產生 6 碼代碼：前三碼英文隨機 + 後三碼點數（例：003）。</p>
+
+  <form action="/merchant/create" method="post">
+    <label>幾點（0~999）</label><br/>
+    <input type="number" name="points" min="0" max="999" required />
+    <button type="submit">確認</button>
+  </form>
+
+  <p><a href="/home">返回</a></p>
+</body>
+</html>

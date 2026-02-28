@@ -2,9 +2,17 @@
 {% block content %}
 <div class="card">
   <h3>輸入交易代碼</h3>
-  <form method="post" action="/redeem">
-    <input name="code" required placeholder="例如：G7K2P9Q4" />
-    <button type="submit">兌換 Green Points</button>
+
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+
+  <form action="/redeem" method="post">
+    <label>交易代碼（6碼）</label>
+    <input name="code" placeholder="例如 ABC003" required />
+    <button type="submit">確認兌換</button>
   </form>
+
+  <p><a href="/home">返回</a></p>
 </div>
 {% endblock %}

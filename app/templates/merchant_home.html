@@ -3,11 +3,18 @@
 <div class="card">
   <h3>店家中心</h3>
   <p>Email：{{ user.email }}</p>
-  <p><a href="/merchant/create">建立交易代碼（輸入點數）</a></p>
+
+  <!-- 建立交易代碼按鈕 -->
+  <a href="/merchant/create">建立交易代碼</a>
 
   <h4>最近建立的代碼</h4>
   <table>
-    <tr><th>建立時間</th><th>代碼</th><th>點數</th><th>已使用</th></tr>
+    <tr>
+      <th>建立時間</th>
+      <th>代碼</th>
+      <th>點數</th>
+      <th>已使用</th>
+    </tr>
     {% for c in codes %}
       <tr>
         <td>{{ c.created_at }}</td>

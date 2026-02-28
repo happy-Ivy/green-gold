@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 
 from .db import init_db, get_session
 from .models import User, TransactionCode, PointLog
-from .security import gen_code
+from .security import gen_tx_code_6
 
 load_dotenv()
 
@@ -86,14 +86,19 @@ def login(
     user = session.exec(select(User).where(User.email == email)).first()
 
     if not user:
-        if role == "admin":
-            raise HTTPException(403, "Admin must be pre-approved")
         user = User(email=email, role=role)
         session.add(user)
         session.commit()
         session.refresh(user)
     else:
-        role = user.role
+        # ⭐ 核心修正
+        if role == "admin" and email in admin_whitelist():
+            user.role = "admin"
+        else:
+            user.role = role
+
+        session.add(user)
+        session.commit()
 
     request.session["user_id"] = user.id
     request.session["role"] = user.role
@@ -113,7 +118,7 @@ def logout(request: Request):
 
 @app.get("/rules", response_class=HTMLResponse)
 def rules_page(request: Request):
-    require_login(request)
+    # 不用登入也可以看遊戲規則
     return templates.TemplateResponse("rules.html", {"request": request})
 
 
@@ -196,7 +201,17 @@ def admin_export(request: Request, session: Session = Depends(get_session)):
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+# =========================
+# Merchant 建立代碼（兩段式）
+# =========================
 
+@app.get("/merchant/create", response_class=HTMLResponse)
+def merchant_create_page(request: Request):
+    auth = require_login(request)
+    if auth["role"] != "merchant":
+        raise HTTPException(403)
+
+    return templates.TemplateResponse("merchant_create.html", {"request": request})
 
 # =========================
 # Merchant 建立代碼
@@ -212,20 +227,40 @@ def merchant_create_code(
     if auth["role"] != "merchant":
         raise HTTPException(403)
 
-    code = gen_code(8)
+    if points < 0 or points > 999:
+        raise HTTPException(status_code=400, detail="points must be 0~999")
+
+    # ✅ 6 碼：前三碼英文隨機 + 後三碼點數（003）
+    code = gen_tx_code_6(points)
+
+    # 保險：避免極低機率重複（unique=True 會擋，但這裡先預防）
+    # 若撞碼就再產生一次（通常不會發生）
+    existing = session.exec(select(TransactionCode).where(TransactionCode.code == code)).first()
+    if existing:
+        code = gen_tx_code_6(points)
+
     rec = TransactionCode(code=code, merchant_id=auth["user_id"], points=points)
 
     session.add(rec)
     session.commit()
 
     return RedirectResponse("/home", status_code=303)
+# =========================
+# 使用者輸入交易代碼頁（GET）
+# =========================
 
+@app.get("/redeem", response_class=HTMLResponse)
+def redeem_page(request: Request):
+    auth = require_login(request)
+    if auth["role"] != "user":
+        raise HTTPException(403)
+    return templates.TemplateResponse("redeem.html", {"request": request})
 
 # =========================
 # 使用者兌換
 # =========================
 
-@app.post("/redeem")
+@app.post("/redeem", response_class=HTMLResponse)
 def redeem(
     request: Request,
     code: str = Form(...),
@@ -235,20 +270,40 @@ def redeem(
     if auth["role"] != "user":
         raise HTTPException(403)
 
+    code_norm = code.strip().upper()
+
     rec = session.exec(
-        select(TransactionCode).where(TransactionCode.code == code.strip().upper())
+        select(TransactionCode).where(TransactionCode.code == code_norm)
     ).first()
 
-    if not rec or rec.is_used:
-        raise HTTPException(400, "Invalid code")
+    if not rec:
+        return templates.TemplateResponse(
+            "redeem.html",
+            {"request": request, "error": "交易代碼不存在，請確認後再輸入。"},
+            status_code=400
+        )
+
+    if rec.is_used:
+        return templates.TemplateResponse(
+            "redeem.html",
+            {"request": request, "error": "此交易代碼已兌換過，無法重複使用。"},
+            status_code=400
+        )
 
     user = session.get(User, auth["user_id"])
+    if not user:
+        request.session.clear()
+        return RedirectResponse("/", status_code=303)
 
+    # 發放點數
     user.green_points += rec.points
+
+    # 標記已使用
     rec.is_used = True
     rec.used_at = datetime.utcnow()
     rec.used_by_user_id = user.id
 
+    # 紀錄
     log = PointLog(
         user_id=user.id,
         merchant_id=rec.merchant_id,
