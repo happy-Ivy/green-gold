@@ -9,15 +9,6 @@ class User(SQLModel, table=True):
     green_points: int = Field(default=0)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-class EmailOTP(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    email: str = Field(index=True)
-    otp_hash: str
-    expires_at: datetime
-    attempts: int = Field(default=0)
-    is_used: bool = Field(default=False)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
 class TransactionCode(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     code: str = Field(index=True, unique=True)

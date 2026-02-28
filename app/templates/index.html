@@ -1,11 +1,24 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="card">
-  <h2>Green Points 系統（MVP）</h2>
-  <p>店家建立交易代碼，使用者輸入代碼入點。</p>
-  <p><a href="/login">開始使用</a></p>
-</div>
-<div class="hero">
-  <img src="/static/img/home-hero.jpg" alt="首頁主圖" class="hero-img">
-</div>
-{% endblock %}
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Green Points</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif; margin: 24px; }
+    .card { max-width: 520px; padding: 16px; border: 1px solid #ddd; border-radius: 12px; }
+    a { color: #0b57d0; text-decoration: none; }
+    button { width: 100%; padding: 10px; margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Green Points</h2>
+    <p>環保集點系統</p>
+
+    <p><a href="/login">前往登入</a></p>
+    <p><a href="/rules">遊戲規則（需登入）</a></p>
+  </div>
+</body>
+</html>
+<img src="/static/img/home-hero.jpg" alt="home" style="max-width:100%; height:auto;">

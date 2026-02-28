@@ -1,7 +1,18 @@
-.env
-.venv/
-venv/
+# Python
 __pycache__/
 *.pyc
-**/.DS_Store
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Database
 green_points.db
+
+# Environment
+.env

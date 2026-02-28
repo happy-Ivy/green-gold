@@ -1,20 +1,42 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="card">
-  <h3>登入 </h3>
-  <form method="post" action="/request-otp">
-    <label>Email</label>
-    <input name="email" type="email" required placeholder="you@example.com" />
-    <label>角色</label>
-    <select name="role" required>
-      <option value="user">User（消費者）</option>
-      <option value="merchant">Merchant（店家）</option>
-       <option value="admin">Admin（管理者）</option>
-    </select>
-    <button type="submit">寄送 OTP</button>
-  </form>
-  <p style="font-size: 13px; color:#666;">
-    開發模式預設不寄信，OTP 會印在終端機。
-  </p>
-</div>
-{% endblock %}
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>登入｜Green Points</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif; margin: 24px; }
+    .card { max-width: 520px; padding: 16px; border: 1px solid #ddd; border-radius: 12px; }
+    input, select, button { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
+    a { color: #0b57d0; text-decoration: none; }
+    .row { display: flex; gap: 12px; }
+    .row > * { flex: 1; }
+    .hint { font-size: 13px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>登入</h2>
+
+    <form method="post" action="/login">
+      <label>電子郵件</label>
+      <input type="email" name="email" placeholder="you@example.com" required />
+
+      <label>身份</label>
+      <select name="role" required>
+        <option value="user">使用者</option>
+        <option value="merchant">店家</option>
+        <option value="admin">管理員</option>
+      </select>
+
+      <button type="submit">登入</button>
+    </form>
+
+    <p class="hint">
+      管理員需在 ADMIN_EMAILS 白名單中；已存在帳號會以資料庫角色為準（登入頁無法切換角色）。
+    </p>
+
+    <p><a href="/">回首頁</a></p>
+  </div>
+</body>
+</html>
