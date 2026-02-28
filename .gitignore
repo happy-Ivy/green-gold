@@ -1,9 +1,7 @@
-# macOS
-.DS_Store
-
-# Python cache
+venv/
+.venv/
 __pycache__/
 *.pyc
-
-# Database
+.DS_Store
 *.db
+.env

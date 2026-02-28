@@ -1,9 +1,0 @@
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.env
-venv/
-.venv/
-green_points.db
-.DS_Store
