@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>輸入交易代碼</h3>
+  <form method="post" action="/redeem">
+    <input name="code" required placeholder="例如：G7K2P9Q4" />
+    <button type="submit">兌換 Green Points</button>
+  </form>
+</div>
+{% endblock %}

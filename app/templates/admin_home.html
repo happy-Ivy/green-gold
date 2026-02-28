@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Admin Dashboard</h2>
+<p><a href="/admin/export">下載 Excel（users / codes / logs）</a></p>
+
+  <h3>所有使用者</h3>
+  <table>
+    <tr><th>ID</th><th>Email</th><th>Role</th><th>Points</th></tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.role }}</td>
+      <td>{{ u.green_points }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3>所有交易代碼</h3>
+  <table>
+    <tr><th>ID</th><th>Code</th><th>Points</th><th>Used</th></tr>
+    {% for c in codes %}
+    <tr>
+      <td>{{ c.id }}</td>
+      <td>{{ c.code }}</td>
+      <td>{{ c.points }}</td>
+      <td>{{ "Yes" if c.is_used else "No" }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3>點數紀錄</h3>
+  <table>
+    <tr><th>ID</th><th>User</th><th>Merchant</th><th>Points</th><th>Code</th></tr>
+    {% for l in logs %}
+    <tr>
+      <td>{{ l.id }}</td>
+      <td>{{ l.user_id }}</td>
+      <td>{{ l.merchant_id }}</td>
+      <td>{{ l.points }}</td>
+      <td>{{ l.code }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+{% endblock %}

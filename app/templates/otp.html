@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>輸入 OTP</h3>
+  <p>Email：{{ email }}</p>
+  <form method="post" action="/verify-otp">
+    <input name="otp" inputmode="numeric" required placeholder="6-digit OTP" />
+    <button type="submit">登入</button>
+  </form>
+</div>
+{% endblock %}

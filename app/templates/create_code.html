@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>建立交易代碼</h3>
+  <form method="post" action="/merchant/create">
+    <label>輸入要給的 Green Points</label>
+    <input name="points" type="number" min="1" required />
+    <button type="submit">產生代碼</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>登入 </h3>
+  <form method="post" action="/request-otp">
+    <label>Email</label>
+    <input name="email" type="email" required placeholder="you@example.com" />
+    <label>角色</label>
+    <select name="role" required>
+      <option value="user">User（消費者）</option>
+      <option value="merchant">Merchant（店家）</option>
+       <option value="admin">Admin（管理者）</option>
+    </select>
+    <button type="submit">寄送 OTP</button>
+  </form>
+  <p style="font-size: 13px; color:#666;">
+    開發模式預設不寄信，OTP 會印在終端機。
+  </p>
+</div>
+{% endblock %}
