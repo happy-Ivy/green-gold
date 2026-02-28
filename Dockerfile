@@ -5,12 +5,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# 安裝依賴
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# 複製程式
-COPY . .
+COPY . /app
 
-# Railway 會提供 PORT 環境變數
-CMD ["bash", "-lc", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Railway 會提供 $PORT
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
