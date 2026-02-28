@@ -3,5 +3,5 @@
 venv/
 __pycache__/
 *.pyc
-.DS_Store
+**/.DS_Store
 green_points.db
