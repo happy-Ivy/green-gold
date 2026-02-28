@@ -1,15 +1,16 @@
 import hashlib
-import hmac
-import os
-import random
+import secrets
 import string
 
-def gen_otp(length: int = 6) -> str:
-    return "".join(random.choice(string.digits) for _ in range(length))
+def gen_otp() -> str:
+    """6 位數 OTP"""
+    return f"{secrets.randbelow(1_000_000):06d}"
 
 def hash_otp(otp: str) -> str:
-    secret = os.getenv("APP_HASH_SECRET", "CHANGE_ME_HASH_SECRET")
-    return hmac.new(secret.encode(), otp.encode(), hashlib.sha256).hexdigest()
+    """OTP 雜湊（避免明碼存 DB）"""
+    return hashlib.sha256(otp.encode("utf-8")).hexdigest()
 
-def verify_otp(otp: str, otp_hash: str) -> bool:
-    return hmac.compare_digest(hash_otp(otp), otp_hash)
+def gen_code(length: int = 8) -> str:
+    """交易代碼（預設 8 碼，大寫英數）"""
+    alphabet = string.ascii_uppercase + string.digits
+    return "".join(secrets.choice(alphabet) for _ in range(length))
