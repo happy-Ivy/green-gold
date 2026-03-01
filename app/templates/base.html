@@ -6,77 +6,23 @@
   <title>Green Points</title>
 
   <link rel="stylesheet" href="/static/css/style.css">
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif;
-      margin: 24px;
-    }
-
-    .card {
-      max-width: 520px;
-      padding: 16px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-    }
-
-    a {
-      color: #0b57d0;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .row {
-      display: flex;
-      gap: 12px;
-    }
-
-    .row > * {
-      flex: 1;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-    }
-
-    th, td {
-      border-bottom: 1px solid #eee;
-      padding: 8px;
-      text-align: left;
-      font-size: 14px;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-  </style>
 </head>
 
 <body>
   <div class="topbar">
-    <div><strong>Green Points</strong></div>
-
-    <div>
+    <div class="topbar-right">
       {% if request.session.get("user_id") %}
-        <a href="/home">Home</a> ·
-        <a href="/rules">遊戲規則</a> ·
+        <a href="/home">Home</a>
+        <span class="dot">·</span>
+        <a href="/rules">遊戲規則</a>
+        <span class="dot">·</span>
         <a href="/logout">Logout</a>
       {% else %}
-        <a href="/login">Login</a>
+      <a href="/">Home</a>
+      <span class="dot">·</span>
+      <a href="/login">Login</a>
+      <span class="dot">·</span>
+      <a href="/rules">遊戲規則</a>
       {% endif %}
     </div>
   </div>

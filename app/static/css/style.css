@@ -9,3 +9,180 @@
   height:auto;
   border-radius:16px;
 }
+html, body {
+  background: #f2f9f4;
+  min-height: 100%;
+}
+/* =========================
+   🌿 Green Theme
+========================= */
+
+:root {
+  --bg: #f2f9f4;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: rgba(0,0,0,0.08);
+  --primary: #2e7d32;
+  --primaryDark: #1b5e20;
+  --primarySoft: #e8f5e9;
+  --shadow: 0 6px 18px rgba(0,0,0,0.08);
+  --radius: 16px;
+}
+html, body {
+  background: #f2f9f4;
+  min-height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif;
+  margin: 0;
+  padding: 24px;
+  color: var(--text);
+}
+
+.card {
+  max-width: 720px;
+  margin: 0 auto 32px auto;   /* 置中 + 底部留空 */
+  padding: 28px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+h3, h4 {
+  color: var(--primary);
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: var(--primaryDark);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   🖼 Hero Image Section
+========================= */
+
+.hero {
+  display: flex;
+  justify-content: center;
+  padding: 32px 12px 48px 12px;
+  background: #f2f9f4;
+}
+
+.hero-img {
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+/* ========================
+   Topbar (右上角導覽)
+======================== */
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.topbar a {
+  margin-left: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.topbar a:hover {
+  text-decoration: underline;
+}
+
+.topbar .dot {
+  margin-left: 8px;
+  margin-right: 8px;
+  color: rgba(0,0,0,0.35);
+}
+/* =========================
+   🧾 Table 排版（通用版）
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* 表頭 */
+th {
+  background: var(--primarySoft);
+  color: #1b4332;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+
+
+/* ===== 店家中心（建立時間 / 代碼 / 點數 / 已使用） ===== */
+
+.merchant-table th:nth-child(2),
+.merchant-table td:nth-child(2),
+.merchant-table th:nth-child(3),
+.merchant-table td:nth-child(3),
+.merchant-table th:nth-child(4),
+.merchant-table td:nth-child(4) {
+  text-align: center;
+}
+/* =========================
+   👑 Admin Table 排版
+========================= */
+
+.admin-table {
+  table-layout: fixed;
+}
+
+/* ID 欄縮小 */
+.admin-table th:nth-child(1),
+.admin-table td:nth-child(1) {
+  width: 8%;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Email 欄變寬 + 置中 */
+.admin-table th:nth-child(2),
+.admin-table td:nth-child(2) {
+  width: 40%;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Role / Points / Used 置中 */
+.admin-table th:nth-child(3),
+.admin-table td:nth-child(3),
+.admin-table th:nth-child(4),
+.admin-table td:nth-child(4),
+.admin-table th:nth-child(5),
+.admin-table td:nth-child(5) {
+  text-align: center;
+  width: 15%;
+}

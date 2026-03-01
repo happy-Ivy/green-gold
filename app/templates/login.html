@@ -1,38 +1,23 @@
-<!doctype html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>登入｜Green Points</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif; margin: 24px; }
-    .card { max-width: 520px; padding: 16px; border: 1px solid #ddd; border-radius: 12px; }
-    input, select, button { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; }
-    a { color: #0b57d0; text-decoration: none; }
-    .row { display: flex; gap: 12px; }
-    .row > * { flex: 1; }
-    .hint { font-size: 13px; color: #666; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h2>登入</h2>
+{% extends "base.html" %}
+{% block content %}
 
-    <form method="post" action="/login">
-      <label>電子郵件</label>
-      <input type="email" name="email" placeholder="you@example.com" required />
+<div class="card">
+  <h2>登入</h2>
 
-      <label>身份</label>
-      <select name="role" required>
-        <option value="user">使用者</option>
-        <option value="merchant">店家</option>
-        <option value="admin">管理員</option>
-      </select>
+  <form method="post">
+    <label>電子郵件</label>
+    <input type="email" name="email" placeholder="you@example.com" required>
 
-      <button type="submit">登入</button>
-    </form>
+    <label>身份</label>
+    <select name="role">
+      <option value="user">使用者</option>
+      <option value="merchant">店家</option>
+      <option value="admin">管理者</option>
+    </select>
 
-    <p><a href="/">回首頁</a></p>
-  </div>
-</body>
-</html>
+    <button type="submit">登入</button>
+  </form>
+
+</div>
+
+{% endblock %}

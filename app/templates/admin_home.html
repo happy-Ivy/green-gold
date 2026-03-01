@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="card">
-  <h2>Admin Dashboard</h2>
+  <h2>管理者中心</h2>
 <p><a href="/admin/export">下載 Excel（users / codes / logs）</a></p>
 
   <h3>所有使用者</h3>
-  <table>
+  <table class="admin-table">
     <tr><th>ID</th><th>Email</th><th>Role</th><th>Points</th></tr>
     {% for u in users %}
     <tr>
@@ -18,7 +18,7 @@
   </table>
 
   <h3>所有交易代碼</h3>
-  <table>
+  <table class="admin-table">
     <tr><th>ID</th><th>Code</th><th>Points</th><th>Used</th></tr>
     {% for c in codes %}
     <tr>
@@ -31,7 +31,7 @@
   </table>
 
   <h3>點數紀錄</h3>
-  <table>
+  <table class="admin-table">
     <tr><th>ID</th><th>User</th><th>Merchant</th><th>Points</th><th>Code</th></tr>
     {% for l in logs %}
     <tr>

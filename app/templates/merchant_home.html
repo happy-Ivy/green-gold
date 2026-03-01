@@ -1,28 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="card">
+
+  <h2 class="brand-title">Green Points</h2>
+
   <h3>店家中心</h3>
+
   <p>Email：{{ user.email }}</p>
 
-  <!-- 建立交易代碼按鈕 -->
   <a href="/merchant/create">建立交易代碼</a>
 
   <h4>最近建立的代碼</h4>
-  <table>
+
+ <table class="merchant-table">
     <tr>
       <th>建立時間</th>
       <th>代碼</th>
       <th>點數</th>
       <th>已使用</th>
     </tr>
+
     {% for c in codes %}
-      <tr>
-        <td>{{ c.created_at }}</td>
-        <td><strong>{{ c.code }}</strong></td>
-        <td>{{ c.points }}</td>
-        <td>{{ "Yes" if c.is_used else "No" }}</td>
-      </tr>
+    <tr>
+      <td>{{ c.created_at }}</td>
+      <td><strong>{{ c.code }}</strong></td>
+      <td>{{ c.points }}</td>
+      <td>{{ "Yes" if c.is_used else "No" }}</td>
+    </tr>
     {% endfor %}
   </table>
+
 </div>
+
 {% endblock %}

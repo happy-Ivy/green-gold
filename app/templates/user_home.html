@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="card">
+  <h2 class="brand-title">Green Points</h2>
   <h3>使用者中心</h3>
   <p>Email：{{ user.email }}</p>
   <p><strong>Green Points：{{ user.green_points }}</strong></p>
@@ -9,7 +10,7 @@
   </div>
 
   <h4>最近明細</h4>
-  <table>
+  <table class="merchant-table">
     <tr><th>時間</th><th>點數</th><th>代碼</th><th>店家</th></tr>
     {% for r in logs %}
       <tr>
